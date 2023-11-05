@@ -1,5 +1,6 @@
 package com.ndiniz.workshopmongo.resources;
 
+import com.ndiniz.workshopmongo.domain.Post;
 import com.ndiniz.workshopmongo.domain.User;
 import com.ndiniz.workshopmongo.dto.UserDTO;
 import com.ndiniz.workshopmongo.services.UserService;
@@ -55,5 +56,11 @@ public class UserResource {
    public ResponseEntity<Void> delete(@PathVariable String id) {
       service.delete(id);
       return ResponseEntity.noContent().build();
+   }
+
+   @RequestMapping(value = "/{id}/posts", method = RequestMethod.GET)
+   public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+      User obj = service.findById(id);
+      return ResponseEntity.ok().body(obj.getPosts());
    }
 }
